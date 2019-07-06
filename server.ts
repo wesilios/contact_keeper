@@ -1,6 +1,12 @@
-const express = require('express');
+import express, { Application, Request, Response, NextFunction } from 'express';
+import connectDB from './config/db';
 
-const app = express();
+const app: Application = express();
+// Connect DB
+connectDB();
+
+// Init Middleware
+app.use(express.json());
 
 app.get('/', (req, res) => res.json({ message: 'Hello Wolrd' }));
 
