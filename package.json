@@ -5,12 +5,14 @@
   "main": "server.js",
   "license": "ISC",
   "scripts": {
-    "start": "node dist/server.js",
+    "start": "node build/server.js",
     "server": "nodemon server.ts",
     "build": "tsc -p ."
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/config": "^0.0.34",
+    "@types/jsonwebtoken": "^8.3.2",
     "@types/mongoose": "^5.5.7",
     "concurrently": "^4.1.1",
     "nodemon": "^1.19.1"
