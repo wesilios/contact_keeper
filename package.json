@@ -8,7 +8,7 @@
     "start": "node build/server.js",
     "server": "nodemon server.ts",
     "build": "tsc -p .",
-    "client": "yarn start --prefix client",
+    "client": "npm start --prefix client",
     "client:install": "yarn install --prefix client",
     "dev": "concurrently \"yarn server\" \"yarn client\""
   },
