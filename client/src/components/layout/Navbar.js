@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Icon } from 'semantic-ui-react';
 
-const Navbar = ({ title, icon }) => {
+const Navbar = ({ title }) => {
   return (
     <div className='navbar bg-primary'>
       <h1>
-        <i className={icon} /> {title}
+        <Icon name='vcard' /> {title}
       </h1>
       <ul>
         <li>
@@ -21,13 +22,11 @@ const Navbar = ({ title, icon }) => {
 };
 
 Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  icon: PropTypes.string
+  title: PropTypes.string.isRequired
 };
 
 Navbar.defaultProps = {
-  title: 'Contact Keeper',
-  icon: 'far fa-id-card'
+  title: 'Contact Keeper'
 };
 
 export default Navbar;
