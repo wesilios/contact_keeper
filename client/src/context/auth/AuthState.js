@@ -1,6 +1,8 @@
 import React, { useReducer } from 'react';
+import axios from 'axios';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
+import setAuthToken from '../../utils/setAuthToken';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -22,55 +24,78 @@ const AuthState = props => {
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const registerSuccess = () => {
-    dispatch({
-      type: REGISTER_SUCCESS,
-      patch: {}
-    });
+  const register = async data => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post('/api/users', data, config);
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: res.data
+      });
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: err.response.data.message
+      });
+    }
   };
-  const registerFail = () => {
-    dispatch({
-      type: REGISTER_FAIL,
-      patch: {}
-    });
+  const loadUser = async () => {
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+      if (state.user === null) {
+        try {
+          const res = await axios.get('/api/auth');
+          dispatch({
+            type: USER_LOADED,
+            payload: res.data
+          });
+        } catch (err) {
+          dispatch({
+            type: AUTH_ERROR
+          });
+        }
+      }
+    }
   };
-  const userLoad = () => {
-    dispatch({
-      type: USER_LOADED,
-      patch: {}
-    });
-  };
-  const loginSuccess = () => {
-    dispatch({
-      type: LOGIN_SUCCESS,
-      patch: {}
-    });
-  };
-  const loginFail = () => {
-    dispatch({
-      type: LOGIN_FAIL,
-      patch: {}
-    });
+
+  const login = async data => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post('/api/auth', data, config);
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+      });
+      loadUser();
+    } catch (err) {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: err.response.data.message
+      });
+    }
   };
 
   const logOut = () => {
     dispatch({
       type: LOG_OUT,
-      patch: {}
-    });
-  };
-
-  const authError = () => {
-    dispatch({
-      type: AUTH_ERROR,
-      patch: {}
+      payload: {}
     });
   };
 
   const clearErrors = () => {
     dispatch({
-      type: CLEAR_ERRORS,
-      patch: {}
+      type: CLEAR_ERRORS
     });
   };
   return (
@@ -81,13 +106,10 @@ const AuthState = props => {
         loading: state.loading,
         user: state.user,
         error: state.error,
-        registerSuccess,
-        registerFail,
-        loginSuccess,
-        loginFail,
+        register,
+        login,
         logOut,
-        userLoad,
-        authError,
+        loadUser,
         clearErrors
       }}
     >
