@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://wesilios_001:godslayer101@contacts-2c7o9.mongodb.net/test?retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}
