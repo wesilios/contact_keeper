@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node build/server.js",
     "server": "nodemon server.ts",
-    "build": "tsc -p .",
+    "server:build": "tsc -p .",
     "client": "npm start --prefix client",
     "client:install": "yarn install --prefix client",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
