@@ -5,7 +5,7 @@
   "main": "server.js",
   "license": "ISC",
   "scripts": {
-    "start": "node build/server.js",
+    "start": "npm run build && node build/server.js",
     "server": "nodemon server.ts",
     "build": "tsc -p .",
     "client": "npm start --prefix client",
