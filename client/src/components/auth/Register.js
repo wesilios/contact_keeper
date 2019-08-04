@@ -1,16 +1,31 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 import { Form } from 'semantic-ui-react';
 
-const Register = () => {
+const Register = props => {
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
   const { setAlert } = alertContext;
+  const { register, error, clearErrors, isAuthenticated } = authContext;
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password_confirm: ''
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
+    if (error === 'User already existed') {
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const { name, email, password, password_confirm } = user;
 
@@ -25,6 +40,7 @@ const Register = () => {
     } else if (password !== password_confirm) {
       setAlert("Passwords don't match", 'danger');
     } else {
+      register({ name, email, password });
     }
   };
 

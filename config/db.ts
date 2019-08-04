@@ -14,18 +14,6 @@ const connectDB = async () => {
     console.log(err.message);
     process.exit(1);
   }
-
-  //   mongoose
-  //     .connect(db, {
-  //       useNewUrlParser: true,
-  //       useCreateIndex: true,
-  //       useFindAndModify: true
-  //     })
-  //     .then(() => console.log('MongoDb connected'))
-  //     .catch(err => {
-  //       console.log(err.message);
-  //       process.exit(1);
-  //     });
 };
 
 export default connectDB;
