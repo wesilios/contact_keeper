@@ -18,7 +18,7 @@ const AuthState = props => {
   const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: null,
-    loading: true,
+    loading: false,
     error: null,
     user: null
   };
@@ -86,12 +86,10 @@ const AuthState = props => {
     }
   };
 
-  const logOut = () => {
+  const logOut = () =>
     dispatch({
-      type: LOG_OUT,
-      payload: {}
+      type: LOG_OUT
     });
-  };
 
   const clearErrors = () => {
     dispatch({
