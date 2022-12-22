@@ -28,7 +28,7 @@
     "config": "^3.1.0",
     "express": "^4.17.1",
     "express-validator": "^6.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.6.2",
     "semantic-ui-react": "^0.87.3",
     "ts-node": "^8.3.0",
